@@ -18,18 +18,27 @@ while True:
                 print('Todo list is empty. Please add a new todo.')
             else:
                 for index, todo in enumerate(todos):
-                    print(f'{index + 1}. {todo.capitalize()[:-1]}.')
+                    print(f'{index + 1}. {todo.capitalize()[:-1]}')
         case 'edit':
-            index_to_edit = int(input('Please enter todo\'s number in the list: ')) - 1
-            new_todo = input('Enter a new todo: ') + '\n'
-            todos = get_todos()
-            todos[index_to_edit] = new_todo
-            write_todos(todos)
+            try:
+                index_to_edit = int(input('Please enter todo\'s number in the list: ')) - 1
+                todos = get_todos()
+                if todos[index_to_edit]:
+                    new_todo = input('Enter a new todo: ') + '\n'
+                    todos[index_to_edit] = new_todo
+                write_todos(todos)
+            except IndexError:
+                print('Please enter the right number!')
         case 'complete':
-            index_to_complete = int(input('Please enter todo\'s number in the list: '))
-            todos = get_todos()
-            todos.pop(index_to_complete - 1)
-            write_todos(todos)
+            try:
+                index_to_complete = int(input('Please enter todo\'s number in the list: '))
+                todos = get_todos()
+                todos.pop(index_to_complete - 1)
+                write_todos(todos)
+            except IndexError:
+                input('Please enter the right number!')
         case 'exit':
             print('Session has closed. See you later.')
             break
+        case _ :
+            print("Invalid command, please enter the right command!")

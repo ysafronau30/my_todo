@@ -9,7 +9,5 @@ def write_todos(todos, filepath=FILEPATH):
     with open(filepath, 'w') as file:
         file.writelines(todos)
 
-print(__name__)
-
 if __name__ == '__main__':
     print(get_todos())
