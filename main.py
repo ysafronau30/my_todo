@@ -1,3 +1,6 @@
+import functions
+from functions import get_todos, write_todos
+
 print('My To-Do list')
 
 
@@ -6,14 +9,11 @@ while True:
     match command:
         case 'add':
             new_todo = input('Please enter new todo: ') + '\n'
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
             todos.append(new_todo)
-            with open('todos.txt', 'w') as file:
-                file.writelines(todos)
+            write_todos(todos)
         case 'show':
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
             if len(todos) == 0:
                 print('Todo list is empty. Please add a new todo.')
             else:
@@ -22,20 +22,14 @@ while True:
         case 'edit':
             index_to_edit = int(input('Please enter todo\'s number in the list: ')) - 1
             new_todo = input('Enter a new todo: ') + '\n'
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
             todos[index_to_edit] = new_todo
-            with open('todos.txt', 'w') as file:
-                file.writelines(todos)
+            write_todos(todos)
         case 'complete':
             index_to_complete = int(input('Please enter todo\'s number in the list: '))
-            with open('todos.txt', 'r') as file:
-                todos = file.readlines()
+            todos = get_todos()
             todos.pop(index_to_complete - 1)
-            with open('todos.txt', 'w') as file:
-                file.writelines(todos)
+            write_todos(todos)
         case 'exit':
+            print('Session has closed. See you later.')
             break
-
-
-print('Well done')
